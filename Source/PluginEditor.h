@@ -17,11 +17,13 @@ using namespace juce;
 //==============================================================================
 /**
 */
-class FractureAudioProcessorEditor  : public juce::AudioProcessorEditor
+class FractureAudioProcessorEditor : public juce::AudioProcessorEditor, public juce::Timer
 {
 public:
     FractureAudioProcessorEditor (FractureAudioProcessor&);
     ~FractureAudioProcessorEditor() override;
+
+    void timerCallback() override;
 
     //==============================================================================
     void paint (juce::Graphics&) override;

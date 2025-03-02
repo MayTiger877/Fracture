@@ -22,6 +22,8 @@ FractureAudioProcessorEditor::FractureAudioProcessorEditor (FractureAudioProcess
 	m_shakeKnobListener = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "SHAKE", m_shakeKnob);
 
     initializeKnobs();
+
+	startTimer(360);
 }
 
 void FractureAudioProcessorEditor::initializeKnobs()
@@ -99,7 +101,8 @@ void FractureAudioProcessorEditor::paint (juce::Graphics& g)
     {
 		float currentShakeX = randomShake.nextFloat() * m_shakeKnob.getValue() * 10;
         float currentShakeY = randomShake.nextFloat() * m_shakeKnob.getValue() * 10;
-		objects[i].setPosition(400 + currentShakeX, 300 + currentShakeY);
+        objects[i].setPosition(300 + currentShakeX + (((-1)*i)*(m_stereoKnob.getValue()/400)),
+                               300 + currentShakeY - (i * 30));
         objects[i].draw(g, 100);
     }
 
@@ -109,4 +112,9 @@ void FractureAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
+}
+
+void FractureAudioProcessorEditor::timerCallback()
+{
+	repaint();
 }
