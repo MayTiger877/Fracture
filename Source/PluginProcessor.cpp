@@ -322,5 +322,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout FractureAudioProcessor::crea
 
     params.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "STEREO", 1 }, "Stereo", 0.0f, 400.0f, 0.0f));
 
+	params.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "SHAKE", 1 }, "Shake", 0.0f, 10.0f, 2.0f));
+
 	return params;
 }

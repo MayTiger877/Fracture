@@ -36,23 +36,26 @@ private:
     Slider m_delayTimeKnob;
     Slider m_feedbackKnob;
     Slider m_stereoKnob;
+	Slider m_shakeKnob;
 
 	Label m_dryWetLabel;
 	Label m_delayTimeLabel;
 	Label m_feedbackLabel;
 	Label m_stereoLabel;
+	Label m_shakeLabel;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> m_dryWetKnobListener;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> m_delayTimeKnobListener;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> m_feedbackKnobListener;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> m_stereoKnobListener;
+	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> m_shakeKnobListener;
 
     void initializeKnobs();
 
     //---------------------------------------------------
     //             Visuals
     SpaceObject objects[6];
-    void shakeObject();
+    juce::Random randomShake;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FractureAudioProcessorEditor)
 };
