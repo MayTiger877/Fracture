@@ -113,9 +113,11 @@ void FractureAudioProcessorEditor::paint (juce::Graphics& g)
         float currentShakeY = randomShake.nextFloat() * currentShake;
 		float side = (i % 2 == 0) ? 1 : -1;
 
-        objects[i].setPosition(350 + currentShakeX + (side * (currentStereo / 80)),
+        objects[i].setPosition(350 + currentShakeX + (side * ((currentStereo / 80) * (5 * i) * 0.4)),
                                330 + currentShakeY - (i * (60 * currentDelayTime / 500.0)));
-        objects[i].setAlpha(1.0f - float(i*100 / 500) + currentFeedback);
+        
+        objects[i].setAlpha(currentFeedback - (i * 0.1));
+
         objects[i].draw(g, 100);
     }
 
