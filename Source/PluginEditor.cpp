@@ -23,7 +23,7 @@ FractureAudioProcessorEditor::FractureAudioProcessorEditor (FractureAudioProcess
 
     initializeKnobs();
 
-	startTimer(360);
+	startTimer(180);
 }
 
 void FractureAudioProcessorEditor::initializeKnobs()
@@ -96,13 +96,26 @@ void FractureAudioProcessorEditor::paint (juce::Graphics& g)
 
     g.setColour (juce::Colours::white);
     g.setFont (juce::FontOptions (15.0f));
+
+	g.setColour(juce::Colours::white);
+    g.drawLine(400, 30, 400, 380, 2);
+    g.drawLine(350, 30, 390, 380, 2);
+    g.drawLine(450, 30, 410, 380, 2);
+
+	float currentDelayTime = m_delayTimeKnob.getValue();
+	float currentFeedback = m_feedbackKnob.getValue();
+	float currentStereo = m_stereoKnob.getValue();
+	float currentShake = m_shakeKnob.getValue();
     
     for (int i = 0; i < 6; i++)
     {
-		float currentShakeX = randomShake.nextFloat() * m_shakeKnob.getValue() * 10;
-        float currentShakeY = randomShake.nextFloat() * m_shakeKnob.getValue() * 10;
-        objects[i].setPosition(300 + currentShakeX + (((-1)*i)*(m_stereoKnob.getValue()/400)),
-                               300 + currentShakeY - (i * 30));
+		float currentShakeX = randomShake.nextFloat() * currentShake;
+        float currentShakeY = randomShake.nextFloat() * currentShake;
+		float side = (i % 2 == 0) ? 1 : -1;
+
+        objects[i].setPosition(350 + currentShakeX + (side * (currentStereo / 80)),
+                               330 + currentShakeY - (i * (60 * currentDelayTime / 500.0)));
+        objects[i].setAlpha(1.0f - float(i*100 / 500) + currentFeedback);
         objects[i].draw(g, 100);
     }
 
