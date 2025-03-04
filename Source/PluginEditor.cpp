@@ -23,7 +23,7 @@ FractureAudioProcessorEditor::FractureAudioProcessorEditor (FractureAudioProcess
 
     initializeKnobs();
 
-	startTimer(180);
+	startTimer(60);
 }
 
 void FractureAudioProcessorEditor::initializeKnobs()
@@ -116,7 +116,8 @@ void FractureAudioProcessorEditor::paint (juce::Graphics& g)
         objects[i].setPosition(350 + currentShakeX + (side * ((currentStereo / 80) * (5 * i) * 0.4)),
                                330 + currentShakeY - (i * (60 * currentDelayTime / 500.0)));
         
-        objects[i].setAlpha(currentFeedback - (i * 0.1));
+        //float feedbackGradiant = (i * 0.1 / juce::jmap<float>(currentFeedback, 0.0, 1.0, 0.1, 1.0));
+        objects[i].setAlpha(pow(currentFeedback,i));
 
         objects[i].draw(g, 100);
     }
